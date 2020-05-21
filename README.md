@@ -1,4 +1,4 @@
-# birthdays# Birthdays List App with MEAN
+# Birthdays List App with MEAN
 This repository contains the code for a RESTful API Birthday List App that was built using the *MEAN* stack:
 > - MongoDB 
 > - Express
