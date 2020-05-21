@@ -7,7 +7,7 @@ const index=require('./routes')
 const mongoose = require('mongoose')
 
 const app=express()
-const port=3000
+const port=process.env.PORT | 3000
 const url = 'mongodb+srv://admin:admin@cluster0-h3vu0.mongodb.net/Birthdays?retryWrites=true&w=majority'
 
 mongoose.connect(url, {useUnifiedTopology: true}, (err)=>{
