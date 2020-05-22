@@ -70,13 +70,13 @@ export class BdayListComponent implements OnInit {
           console.log("Error in adding new Task")
         }else{
           console.log("Edited Successfully")
-          this.cancel();
           this.loadBdays();
         }
-      })
+      }) 
     }else{
       console.log("Name field can not be empty")
     }
+    this.cancel();
   }
 
   deleteBday(id: string): void {

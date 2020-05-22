@@ -1,7 +1,7 @@
 .bg
 {
-	/* The image used */
-	background-image: url(/assets/background.jpg);
+	/* The image used and overlay*/
+	background-image: linear-gradient(rgba(128,128,128,.5), rgba(128,128,128,.5)), url(/assets/background.jpg);
 
 	/* Full height */
 	height: 100vh;
@@ -11,8 +11,19 @@
 	background-repeat: no-repeat;
 	background-size: cover;
 }
-
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 4%;
+    background-color: rgba(128,128,128,.5);
+    color: black;
+    text-align: right;
+    font-size: larger;
+}
 .cursive
 {
 	font-family: 'Dancing Script', cursive;
+	font-weight: bolder;
 }
