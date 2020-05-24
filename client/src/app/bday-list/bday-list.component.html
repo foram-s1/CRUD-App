@@ -37,9 +37,6 @@
                 Add Birthday
             </button>
         </div>
-        <div class="footer">
-            <p>~ Foram Shah&nbsp;&nbsp;</p>
-        </div>        
     </div>
 </div>
 <!-- Modal -->
@@ -58,7 +55,7 @@
                         <label class="col-form-label">Name: </label>
                     </div>
                     <div class="col-md-4">
-                        <input class="form-control" type="text" [(ngModel)]="birthdate.name">
+                        <input class="form-control" type="text" [(ngModel)]="birthdate.name" placeholder="Name">
                     </div>
                     <div class="col-md-2">
                         <label class="col-form-label">Birthdate: </label>
@@ -68,8 +65,8 @@
                     </div>
                     <br /><br />
                     <div class="form-group">
-                        <label for="Note">Wishes:</label>
-                        <textarea class="form-control" rows="4" cols="100" id="Note" placeholder="Write your Wishes"
+                        <label for="Note">Note:</label>
+                        <textarea class="form-control" rows="4" cols="100" id="Note" placeholder="Write a note"
                             [(ngModel)]="birthdate.note"></textarea>
                     </div>
                 </div>
@@ -96,13 +93,13 @@
                         <label class="col-form-label">Name: </label>
                     </div>
                     <div class="col-md-4">
-                        <input class="form-control" type="text" [(ngModel)]="birthdate.name">
+                        <input class="form-control" type="text" [(ngModel)]="birthdate.name" placeholder="Name">
                     </div>
                     <div class="col-md-2">
                         <label class="col-form-label">Birthdate: </label>
                     </div>
                     <div class="col-md-4">
-                        <input class="form-control" type="text" [(ngModel)]="birthdate.date">
+                        <input class="form-control" type="text" [(ngModel)]="birthdate.date" placeholder="dd/mm/yyyy">
                     </div>
                     <br /><br />
                     <div class="form-group">

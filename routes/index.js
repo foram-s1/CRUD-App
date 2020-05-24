@@ -1,24 +1,30 @@
 const express = require('express')
 var router = express.Router()
+const jwt = require('jsonwebtoken')
 
 const Bday = require('../models')
 
+process.env.SECRET_KEY='secret'
+
 router.get('/bdays', (req, res) => {
-    Bday.find((err, docs) => {
-        if (!err) {
+    var decoded=jwt.verify(req.headers['authorization'], process.env.SECRET_KEY)
+    Bday.find({
+        user_id:decoded._id
+    }).then((docs)=> {
             res.json({ docs })
-        } else {
-            res.json({ msg: 'Getting Error' })
-        }
+        }).catch((error)=>{
+            res.json({ error})      
     })
 })
 //bday{ name,date,note}
 //add bday
 router.post('/bday/add', (req, res) => {
+    var decoded=jwt.verify(req.headers['authorization'], process.env.SECRET_KEY)
     var newBday = new Bday({
         name: req.body.name,
         date: req.body.date,
-        note: req.body.note
+        note: req.body.note,
+        user_id: decoded._id
     })
     newBday.save().then((doc) => {
         res.json({ doc })
@@ -28,7 +34,8 @@ router.post('/bday/add', (req, res) => {
 })
 //delete bday
 router.delete('/bday/:id', (req, res) => {
-    Bday.deleteOne({ _id: req.params.id }).then((doc) => {
+    var decoded=jwt.verify(req.headers['authorization'], process.env.SECRET_KEY)
+    Bday.deleteOne({ _id: req.params.id, user_id:decoded._id }).then((doc) => {
         res.json({ doc })
     }).catch((err) => {
         res.json({ err })
@@ -36,7 +43,8 @@ router.delete('/bday/:id', (req, res) => {
 })
 //edit bday
 router.put('/bday/:id', (req, res) => {
-    Bday.updateOne({ _id: req.params.id }, req.body).then((doc) => {
+    var decoded=jwt.verify(req.headers['authorization'], process.env.SECRET_KEY)
+    Bday.updateOne({ _id: req.params.id, user_id: decoded._id }, req.body).then((doc) => {
         res.json({ doc })
     }).catch((err) => {
         res.json({ err })

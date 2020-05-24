@@ -3,7 +3,8 @@ const express=require('express')
 const bodyParser=require('body-parser')
 const path=require('path')
 const cors = require('cors')
-const index=require('./routes')
+const index=require('./routes/index')
+const Users=require('./routes/Users')
 const mongoose = require('mongoose')
 
 const app=express()
@@ -22,6 +23,7 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 
+app.use('/users', Users)
 app.use('/api',index)
 
 app.use(express.static(path.join(__dirname, 'public')))

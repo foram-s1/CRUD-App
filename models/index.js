@@ -7,10 +7,10 @@ var BdaySchema = mongoose.Schema({
     },
     date: {
         type: String,
-        default: "dd/mm/yyyy",
         required: true
     },
-    note: String
+    note: String,
+    user_id: String
 })
 
 const bday = module.exports = mongoose.model('bday', BdaySchema)

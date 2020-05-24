@@ -1,1 +1,27 @@
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample10" aria-controls="navbarsExample10"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    
+      <div class="collapse navbar-collapse " id="navbarsExample10">
+        <ul class="navbar-nav  ml-auto ">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/">Home</a>
+          </li>
+          <li *ngIf="!auth.isLoggedIn()" class="nav-item ">
+            <a class="nav-link" routerLink="/login">Login</a>
+          </li>
+          <li *ngIf="auth.isLoggedIn()" class="nav-item ">
+            <a class="nav-link" routerLink="/bdays">Birthdays</a>
+          </li>
+          <li *ngIf="auth.isLoggedIn()" class="nav-item ">
+            <a class="nav-link" routerLink="" (click)="auth.logout()">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <footer class="page-footer fixed-bottom ">
+    <div class="footer-copyright text-right py-3">~Foram Shah&nbsp;&nbsp;</div>
+    </footer>
 <router-outlet></router-outlet>
