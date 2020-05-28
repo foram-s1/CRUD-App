@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router'
 import { FormsModule }  from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr'
 
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
@@ -31,7 +33,9 @@ const routes: Routes = [
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    ToastrModule.forRoot({timeOut:5000}),
+    BrowserAnimationsModule
   ],
   providers: [BdayListService, AuthGuardService, AuthenticationService],
   bootstrap: [AppComponent]

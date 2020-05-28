@@ -27,6 +27,14 @@ export class BdayListService {
     })
   }
 
+  searchBday(name: string) {
+    return this.http.post('/api/bday/search',{name: name},{
+      headers: {
+        Authorization: `${this.auth.getToken()}`
+      }
+    })
+  }
+  
   editBday(_id: string, name: string, date: string, note: string) {
     return this.http.put('/api/bday/'+_id,{name: name, date: date, note: note},{
       headers:{

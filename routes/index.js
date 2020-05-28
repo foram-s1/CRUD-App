@@ -32,6 +32,16 @@ router.post('/bday/add', (req, res) => {
         res.json({ "error": "Bad Data" })
     })
 })
+router.post('/bday/search', (req,res)=>{
+    var decoded=jwt.verify(req.headers['authorization'], process.env.SECRET_KEY)
+    Bday.find({ name : req.body.name, user_id: decoded._id},(err,docs)=>{
+        if(err){    
+            res.json({err})
+        }else {
+            res.json({docs})
+        }
+    })   
+})
 //delete bday
 router.delete('/bday/:id', (req, res) => {
     var decoded=jwt.verify(req.headers['authorization'], process.env.SECRET_KEY)

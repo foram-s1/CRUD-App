@@ -27,7 +27,7 @@ users.post('/register', (req, res) => {
               email: user.email
             }
             let token = jwt.sign(payload, process.env.SECRET_KEY, {
-              expiresIn: 1440
+              expiresIn: '24h'
             })
             res.json({ token: token })
           })
@@ -45,7 +45,8 @@ users.post('/register', (req, res) => {
 
 users.post('/login', (req, res) => {
   User.findOne({
-    email: req.body.email
+    email: req.body.email,
+    password: req.body.password
   })
     .then(user => {
       if (user) {
@@ -54,7 +55,7 @@ users.post('/login', (req, res) => {
           email: user.email
         }
         let token = jwt.sign(payload, process.env.SECRET_KEY, {
-          expiresIn: 1440
+          expiresIn: '24h'
         })
         res.json({ token: token })
       } else {

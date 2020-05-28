@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {BdayListService} from '../bday-list.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 interface BirthDay {
   _id: string,
@@ -26,7 +27,7 @@ export class BdayListComponent implements OnInit {
     note: ""
   }
 
-  constructor(private bdayListService: BdayListService, private router: Router ) { }
+  constructor(private bdayListService: BdayListService, private router: Router, private toastr: ToastrService ) { }
 
   ngOnInit(): void {
     this.loadBdays();
@@ -43,10 +44,10 @@ export class BdayListComponent implements OnInit {
   }
 
   addBday(): void {
-    if(this.birthdate.name){
+    if(this.birthdate.name && this.birthdate.date){
       this.bdayListService.addBday(this.birthdate.name, this.birthdate.date, this.birthdate.note).subscribe((data:{error, doc})=>{
         if(data.error){
-          console.log("Error in adding new Task")
+          this.toastr.error("Error in adding new Bday")
         }else{
           this.birthdate = {
             _id: "",
@@ -54,27 +55,44 @@ export class BdayListComponent implements OnInit {
             date: "",
             note: ""
           }
-          console.log("Added Successfully")
+          this.toastr.success('Added Successfully!!')
           this.loadBdays();
         }
       })
     }else{
-      console.log("Name field can not be empty")
+      this.toastr.error("Name and Date field cannot be empty")
+    }
+    this.cancel();
+  }
+
+  searchBday(): void {
+    if(this.birthdate.name){
+      this.bdayListService.searchBday(this.birthdate.name).subscribe((data:{error,docs})=>{
+        if(data.error){
+          this.toastr.error("Error in searching Bday")
+        }else{
+          this.bdays = data.docs as BirthDay[]
+          this.adding=false
+        }
+      })
+    }else{
+      this.adding=true
+      this.loadBdays()
     }
   }
 
   editBday(): void {
-    if(this.birthdate.name){
+    if(this.birthdate.name && this.birthdate.date){
       this.bdayListService.editBday(this.birthdate._id, this.birthdate.name, this.birthdate.date, this.birthdate.note).subscribe((data:{error, doc})=>{
         if(data.error){
-          console.log("Error in adding new Task")
+          this.toastr.error("Error in editing Bday")
         }else{
-          console.log("Edited Successfully")
+          this.toastr.success("Edited Successfully!!")
           this.loadBdays();
         }
       }) 
     }else{
-      console.log("Name field can not be empty")
+      this.toastr.error("Name and Date field cannot be empty")
     }
     this.cancel();
   }
@@ -84,8 +102,9 @@ export class BdayListComponent implements OnInit {
       this.bdayListService.delBday(id).subscribe((data: {err, doc})=>{
         if(!data.err){
           this.loadBdays();
+          this.toastr.success("Deleted Successfully")
         }else{
-          console.log("Error in deleting birthday!")
+          this.toastr.error("Error in deleting birthday!")
         }
       })
     }

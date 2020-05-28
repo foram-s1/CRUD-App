@@ -3,6 +3,13 @@
         <br />
         <h2 class="text-center cursive">Birthday List</h2>
         <br />
+        <div class="d-flex justify-content-center h-100">
+            <div class="searchbar">
+              <input class="search_input" type="text" name="" placeholder="Search..." [(ngModel)]="birthdate.name">
+              <a class="search_icon" (click)="searchBday()" type="button"><i class="fa fa-search"></i></a>
+            </div>
+          </div>
+          <br/>
         <table class="table table-striped table-dark table-bordered table-hover">
             <thead>
                 <tr>
@@ -14,6 +21,9 @@
                 </tr>
             </thead>
             <tbody>
+                <tr *ngIf="bdays?.length==0">
+                    <td colspan="5" class="text-center">No match found!</td>
+                </tr>
                 <tr *ngFor="let bday of bdays; let i = index;">
                     <td>{{i+1}}</td>
                     <td>{{bday.name}}</td>
@@ -32,9 +42,14 @@
                 </tr>
             </tbody>
         </table>
-        <div class="text-center">
+        <div class="text-center" [hidden]="!adding">
             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModal">
                 Add Birthday
+            </button>
+        </div>
+        <div class="text-right" [hidden]="adding">
+            <button type="button" class="btn btn-success" (click)="cancel()">
+                Back
             </button>
         </div>
     </div>
@@ -104,7 +119,7 @@
                     <br /><br />
                     <div class="form-group">
                         <label for="Note">Wishes:</label>
-                        <textarea class="form-control" rows="4" cols="100" id="Note" placeholder="Write your Wishes"
+                        <textarea class="form-control" rows="4" cols="100" id="Note" placeholder="Write a note"
                             [(ngModel)]="birthdate.note"></textarea>
                     </div>
                 </div>

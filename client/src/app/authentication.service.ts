@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http'
 import { Observable, of } from 'rxjs'
 import { map } from 'rxjs/operators'
 import { Router } from '@angular/router'
+import { ToastrService } from 'ngx-toastr'
 
 export interface UserDetails {
   _id: string
@@ -26,7 +27,7 @@ export interface TokenPayload {
 export class AuthenticationService {
   private token: string
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private toastr:ToastrService) {}
 
   private saveToken(token: string): void {
     localStorage.setItem('usertoken', token)
@@ -67,12 +68,14 @@ export class AuthenticationService {
     const request = base.pipe(
       map((data: TokenResponse) => {
         if (data.token) {
+          this.toastr.success('Logged In Successfully!!')
           this.saveToken(data.token)
+        }else{
+          this.toastr.error('Invalid Details')
         }
         return data
       })
     )
-
     return request
   }
 
@@ -83,6 +86,7 @@ export class AuthenticationService {
   }
 
   public logout(): void {
+    this.toastr.success('Logged Out Successfully!!')
     this.token = ''
     window.localStorage.removeItem('usertoken')
     this.router.navigateByUrl('/')

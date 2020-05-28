@@ -1,0 +1,21 @@
+.bg-img{
+	background-image: linear-gradient(rgba(128,128,128,.5), rgba(128,128,128,.5)), url(/assets/img.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: top;
+	height: 92vh;
+}
+
+.centered {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+  }
+
+.container {
+	position: center;
+	text-align: center;
+	color: black;
+  }
+  
