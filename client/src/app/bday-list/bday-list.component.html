@@ -5,8 +5,8 @@
         <br />
         <div class="d-flex justify-content-center h-100">
             <div class="searchbar">
-              <input class="search_input" type="text" name="" placeholder="Search..." [(ngModel)]="birthdate.name">
-              <a class="search_icon" (click)="searchBday()" type="button"><i class="fa fa-search"></i></a>
+              <input class="search_input" type="text" name="" placeholder="Search by Name or Date or Year.." [(ngModel)]="birthdate.name" (keyup)="searchBday()">
+              <a class="search_icon" type="button"><i class="fa fa-search"></i></a>
             </div>
           </div>
           <br/>

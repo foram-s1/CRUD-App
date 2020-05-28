@@ -34,7 +34,14 @@ router.post('/bday/add', (req, res) => {
 })
 router.post('/bday/search', (req,res)=>{
     var decoded=jwt.verify(req.headers['authorization'], process.env.SECRET_KEY)
-    Bday.find({ name : req.body.name, user_id: decoded._id},(err,docs)=>{
+    const value = req.body.name
+    Bday.find({ $or: [
+        {
+            name: { $regex: value, $options: 'ig', }, user_id: decoded._id,
+        },{
+            date: { $regex: value, $options: 'ig', }, user_id: decoded._id,
+        },
+        ]},(err,docs)=>{
         if(err){    
             res.json({err})
         }else {
